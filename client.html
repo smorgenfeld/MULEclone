@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>mule yay</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src = "http://cdn.peerjs.com/0.3/peer.min.js"></script>
+    <script src = "resources/dataupdate.js"></script>
+  </head>
+  <body>
+    <span id="out">My id is </span>
+    <form method="POST">
+      connection id: <input type="text" id = "connectin"><br>
+      username: <input type="text" id = "username" value="client"><br>
+      <button type="button" onclick="return connect()">Connect</button>
+    </form>
+    <textarea id="console" disabled rows=20 cols=40></textarea><br><br>
+    Ready?
+    <input type="checkbox" onclick="return ready()" id="readybox"></input>
+    <script>
+    var conn = [];
+    var ready = false;
+      $(document).ready(function() {
+        peer = new Peer({key:'rpxx8uu3r2ju4n29', metadata: username, debug: 0});
+        peer.on('open', function(id) {
+          console.log("id is " + id);
+          document.getElementById("out").innerHTML += id;
+          peer.on('connection', function(connn) {
+          });
+        });
+      });
+      function connect() {
+        username = document.getElementById("username").value;
+        peer.metadata = username;
+        var connectid = document.getElementById("connectin").value;
+        if (connectid != null) {
+          conn = peer.connect(connectid);
+          conn.on('open', function() {
+            console.log("connected to " + conn.metadata);
+            var message = new dataupdate();
+            message.addToChat(peer.metadata + " joined the game!");
+            console.log(message)
+            conn.send(message.sendJSON());
+            conn.on('data', function(data) {
+              console.log('data',data);
+              if (data.chat != null)
+                document.getElementById("console").value += data.chat;
+            });
+          });
+        }
+        return false;
+      }
+      function ready() {
+        if (!ready) {ready = true}
+        else {ready = false}
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>mule yay</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src = "http://cdn.peerjs.com/0.3/peer.min.js"></script>
+    <script src = "resources/dataupdate.js"></script>
+  </head>
+  <body>
+    <span id="out">My id is </span>
+    <form method="POST">
+      username: <input type="text" id = "username" value="host"><br>
+      <button type="button" onclick="return setusername()">Set Username</button>
+    </form>
+    <script>
+    var conn = [];
+    var curdata = [];
+      $(document).ready(function() {
+        peer = new Peer({key:'rpxx8uu3r2ju4n29', metadata: username, debug: 0});
+        peer.on('open', function(id) {
+          console.log("id is " + id);
+          document.getElementById("out").innerHTML += id;
+          peer.on('connection', function(connn) {
+            conn.push(connn);
+            curconn = conn[conn.length-1];
+            //console.log(curconn.metadata + " connected");
+            curconn.on('data', function(data) {
+              console.log("data from " + curconn.metadata,data);
+              curdata.push(data);
+            });
+          });
+        });
+      });
+      function setusername() {
+        username = document.getElementById("username").value;
+      }
+      function update() {
+        var newdata = new dataupdate();
+        console.log("updated")
+        for (var i = 0; i < curdata.length; i++) {
+          newdata.addToChat(curdata[i].chat);
+          console.log(curdata[i].chat)
+        }
+        sendall(newdata);
+        curdata = [];
+        setTimeout(update,1000)
+      }
+      function sendall(data) {
+        var data = data.sendJSON()
+        for (var i = 0; i < conn.length; i++) {
+          conn[i].send(data);
+        }
+      }
+      update();
+    </script>
+  </body>
+</html>

@@ -1,43 +1,10 @@
 <html>
   <head>
     <title>mule yay</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src = "http://cdn.peerjs.com/0.3/peer.min.js"></script>
   </head>
   <body>
-    <span id="out">My id is </span>
-    <form method="POST">
-      connection id: <input type="text" id = "connectin"><br>
-      <button type="button" onclick="return connect()">Connect</button>
-    </form>
-    <script>
-      $(document).ready(function() {
-        peer = new Peer({key:'rpxx8uu3r2ju4n29', metadata: "spencer", debug: 0});
-        peer.on('open', function(id) {
-          console.log("id is " + id);
-          document.getElementById("out").innerHTML += id;
-          peer.on('connection', function(conn) {
-            console.log("connected to " + conn.metadata);
-            conn.send("world");
-          });
-        });
-      });
-      function connect() {
-        var connectid = document.getElementById("connectin").value;
-        if (connectid != null) {
-          conn = peer.connect(connectid, {metadata: "spencer"});
-          console.log(conn)
-          conn.on('open', function() {
-            console.log("connected to " + connectid);
-          });
-          conn.on('data', function(data) {
-            console.log(data);
-            console.log('data')
-          });
-          conn.send('hello');
-        }
-        return false;
-      }
-    </script>
+    <span id="out">I want to </span><br>
+    <a href = "host.html">host a game</a><br>
+    <a href = "client.html">connect to a game</a><br>
   </body>
 </html>
