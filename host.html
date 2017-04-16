@@ -13,6 +13,7 @@
     </form>
     <script>
     var conn = [];
+    var totready = 0;
     var curdata = [];
       $(document).ready(function() {
         peer = new Peer({key:'rpxx8uu3r2ju4n29', metadata: username, debug: 0});
@@ -33,16 +34,33 @@
       function setusername() {
         username = document.getElementById("username").value;
       }
-      function update() {
+      function updategame() {
+        console.log("lol");
+      }
+      function updatelobby() {
         var newdata = new dataupdate();
         console.log("updated")
         for (var i = 0; i < curdata.length; i++) {
           newdata.addToChat(curdata[i].chat);
-          console.log(curdata[i].chat)
+          if (curdata[i].ready != null) {
+            if (curdata[i].ready) {
+              totready += 1;
+            }
+            else {
+              totready -= 1;
+            }
+          }
         }
-        sendall(newdata);
         curdata = [];
-        setTimeout(update,1000)
+        if (totready == conn.length && totready != 0) { //if someone disconnects from lobby this will break
+          newdata.addToChat("All players ready! Starting game.")
+          sendall(newdata);
+          setTimeout(updategame,500);
+        }
+        else {
+          sendall(newdata);
+          setTimeout(updatelobby,500);
+        }
       }
       function sendall(data) {
         var data = data.sendJSON()
@@ -50,7 +68,7 @@
           conn[i].send(data);
         }
       }
-      update();
+      updatelobby();
     </script>
   </body>
 </html>

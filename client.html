@@ -14,10 +14,9 @@
     </form>
     <textarea id="console" disabled rows=20 cols=40></textarea><br><br>
     Ready?
-    <input type="checkbox" onclick="return ready()" id="readybox"></input>
+    <input type="checkbox" onclick="return readyup()" id="readybox"></input>
     <script>
-    var conn = [];
-    var ready = false;
+      var ready = false;
       $(document).ready(function() {
         peer = new Peer({key:'rpxx8uu3r2ju4n29', metadata: username, debug: 0});
         peer.on('open', function(id) {
@@ -35,10 +34,7 @@
           conn = peer.connect(connectid);
           conn.on('open', function() {
             console.log("connected to " + conn.metadata);
-            var message = new dataupdate();
-            message.addToChat(peer.metadata + " joined the game!");
-            console.log(message)
-            conn.send(message.sendJSON());
+            sendmessage(peer.metadata + " joined the game!");
             conn.on('data', function(data) {
               console.log('data',data);
               if (data.chat != null)
@@ -48,9 +44,24 @@
         }
         return false;
       }
-      function ready() {
-        if (!ready) {ready = true}
-        else {ready = false}
+      function readyup() {
+        var out = new dataupdate();
+
+        if (!ready) {
+          ready = true;
+          out.addToChat(peer.metadata + " is ready!");
+        }
+        else {
+          ready = false;
+          out.addToChat(peer.metadata + " is not ready.");
+        }
+        out.ready = ready;
+        conn.send(out.sendJSON());
+      }
+      function sendmessage(string) {
+        var message = new dataupdate();
+        message.addToChat(string);
+        conn.send(message.sendJSON());
       }
     </script>
   </body>

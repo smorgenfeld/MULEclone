@@ -1,5 +1,5 @@
 class dataupdate {
-  constructor(map=null,prices=null,chat="",ready=false) {
+  constructor(map=null,prices=null,chat="",ready=null) {
     this.map = map;
     this.prices = prices;
     this.chat = chat;
