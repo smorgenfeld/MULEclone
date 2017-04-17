@@ -4,6 +4,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script src = "http://cdn.peerjs.com/0.3/peer.min.js"></script>
     <script src = "resources/dataupdate.js"></script>
+    <script src = "resources/gameengine.js"></script>
   </head>
   <body>
     <span id="out">My id is </span>
@@ -34,9 +35,6 @@
       function setusername() {
         username = document.getElementById("username").value;
       }
-      function updategame() {
-        console.log("lol");
-      }
       function updatelobby() {
         var newdata = new dataupdate();
         console.log("updated")
@@ -53,9 +51,10 @@
         }
         curdata = [];
         if (totready == conn.length && totready != 0) { //if someone disconnects from lobby this will break
-          newdata.addToChat("All players ready! Starting game.")
+          newdata.addToChat("All players ready! Starting game.");
+          newdata.ready = true;
           sendall(newdata);
-          setTimeout(updategame,500);
+          initgame(conn);
         }
         else {
           sendall(newdata);
