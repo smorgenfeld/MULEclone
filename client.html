@@ -6,6 +6,7 @@
     <script src = "resources/dataupdate.js"></script>
     <script src = "resources/gamerender.js"></script>
     <script src = "resources/map.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/style.css" />
   </head>
   <body>
     <div id = "container">
@@ -17,6 +18,22 @@
       <textarea id="console" disabled rows=20 cols=40></textarea><br><br>
       Ready?
       <input type="checkbox" onclick="return readyup()" id="readybox"></input>
+    </div>
+    <div class="wrapper" id = "uiwrapper" display="none" position="absolute">
+      <div id = "ui">
+        <table id = "prices">
+          <tr>
+            <th></th>
+            <th width = "40">Iron:</th>
+            <th width = "40" id="ironprice"></th>
+            <th width = "40">Food:</th>
+            <th width = "40" id="foodprice"></th>
+            <th width = "40">Water:</th>
+            <th width = "40" id="waterprice"></th>
+            <th></th>
+          </tr>
+        </table>
+      </div>
     </div>
     <canvas id = "game" width="100" height = "100">internet explorer go away</canvas>
     <script>

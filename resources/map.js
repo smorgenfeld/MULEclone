@@ -11,16 +11,16 @@ function getmap(width, height) {
     update: function(ctx) {
       var borderwidth = 200;
       if (p.x > p.camera.width - borderwidth && p.camera.x < this.pwidth - p.camera.width) {
-        p.camera.x += getMagnitude(p.camera.width - p.x);
+        p.camera.x = Math.min(p.camera.x + getMagnitude(p.camera.width - p.x),this.pwidth - p.camera.width);
       }
       else if (p.x < borderwidth && p.camera.x > 0) {
-        p.camera.x -= getMagnitude(p.x);
+        p.camera.x = Math.max(p.camera.x - getMagnitude(p.x),0);
       }
       if (p.y > p.camera.height - borderwidth && p.camera.y < this.pheight - p.camera.height) {
-        p.camera.y += getMagnitude(p.camera.height - p.y);
+        p.camera.y = Math.min(p.camera.y + getMagnitude(p.camera.height - p.y),this.pheight - p.camera.height);
       }
       else if (p.y < borderwidth && p.camera.y > 0 ) {
-        p.camera.y -= getMagnitude(p.y);
+        p.camera.y = Math.max(p.camera.y - getMagnitude(p.y),0);
       }
       var startCol = Math.floor(p.camera.x/this.tosize);
       var endCol = Math.min(startCol + (p.camera.width/this.tosize)+1,this.width - 1);

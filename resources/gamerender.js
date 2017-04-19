@@ -1,9 +1,10 @@
 function startrender() {
   console.log("starting game render")
   document.getElementById("container").style.display = "none";
+  document.getElementById("uiwrapper").style.display = "block";
   win = document.getElementById("game");
-  win.width = p.camera.width = 1000;//document.body.clientWidth;
-  win.height = p.camera.height = 1000;//document.body.clientHeight;
+  win.width = p.camera.width = document.body.clientWidth-20;
+  win.height = p.camera.height = document.body.clientHeight-20;
   ctx = win.getContext('2d');
   window.requestAnimationFrame(renderupdate);
 }
