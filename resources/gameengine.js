@@ -22,8 +22,8 @@ class player {
 }
 class map {
   constructor(w,h) {
-    this.width = width;
-    this.height = height;
+    this.width = w;
+    this.height = h;
     this.map = [];
     for (var i = 0; i < this.width; i++) {
       this.map.push([])
@@ -37,4 +37,17 @@ class map {
       }
     }
   }
+  JSONize() {
+    var out = "";
+    for (var i = 0; i < this.w; i++) {
+      for (var j = 0; j < this.h; j++) {
+
+      }
+    }
+  }
+}
+function randint(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

@@ -1,6 +1,6 @@
-function getmap(width, height) {
+function getmap(width, height, map = generatemap(width,height)) {
   var out = {
-    map: generatemap(width,height),
+    map: map,
     tsize: 64,
     tosize: 64,
     height: height,

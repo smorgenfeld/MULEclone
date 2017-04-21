@@ -22,6 +22,6 @@ class client {
     };
     this.x = 0;
     this.y = 0;
-    this.map = getmap(100,100);
+    this.map = null;
   }
 }

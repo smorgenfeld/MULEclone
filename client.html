@@ -74,6 +74,10 @@
               if (data.chat != null) {
                 document.getElementById("console").value += data.chat;
               }
+              if (data.map != null) {
+                var newmap = JSON.parse(data.map)
+                p.map = getmap(newmap.width,newmap.height,map=newmap.map)
+              }
               if (data.ready == true) {
                 startrender();
               }
@@ -101,12 +105,8 @@
         message.addToChat(string);
         conn.send(message.sendJSON());
       }
-      function randint(min, max) {
-  			min = Math.ceil(min);
-  			max = Math.floor(max);
-  			return Math.floor(Math.random() * (max - min + 1)) + min;
-			}
-      startrender()
+      https://github.com/danielecr/jquery-contextual-menu
+      //startrender()
     </script>
   </body>
 </html>

@@ -5,6 +5,7 @@
     <script src = "http://cdn.peerjs.com/0.3/peer.min.js"></script>
     <script src = "resources/dataupdate.js"></script>
     <script src = "resources/gameengine.js"></script>
+    <script src = "resources/map.js"></script>
   </head>
   <body>
     <span id="out">My id is </span>
@@ -53,6 +54,9 @@
         if (totready == conn.length && totready != 0) { //if someone disconnects from lobby this will break
           newdata.addToChat("All players ready! Starting game.");
           newdata.ready = true;
+          map = getmap(20,20);
+          newdata.map = JSON.stringify(map);
+          console.log(newdata)
           sendall(newdata);
           initgame(conn);
         }
