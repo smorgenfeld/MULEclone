@@ -12,6 +12,21 @@ function renderupdate() {
   p.map.update(ctx);
   window.requestAnimationFrame(renderupdate);
 }
+function baction(building,x,y) {
+  var rc = {
+    x: Math.floor(p.x/64),
+    y: Math.floor(p.y/64)
+  }
+  if (p.map.map[rc.x][rc.y] == "1" && building == "mine") {
+    alert("no");
+  }
+  else {
+    var out = new dataupdate();
+    out.action = [building,rc.x,rc.y];
+    out.action = out.action.stringify();
+    conn.send(out.sendJSON());
+  }
+}
 class client {
   constructor() {
     this.camera = {

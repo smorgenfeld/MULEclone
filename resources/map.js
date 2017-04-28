@@ -1,6 +1,7 @@
 function getmap(width, height, map = generatemap(width,height)) {
   var out = {
     map: map,
+    buildings: getempty(width,height),
     tsize: 64,
     tosize: 64,
     height: height,
@@ -72,4 +73,14 @@ function generatemap(width,height) {
 }
 function getMagnitude(dist) {
   return 50/Math.pow((dist+1),.5);
+}
+function getempty(w,h) {
+  var out = [];
+  for (var i = 0; i < w; i++) {
+    out.push([]);
+    for (var j = 0; j < h; j++) {
+      out.push(0)
+    }
+  }
+  return out;
 }

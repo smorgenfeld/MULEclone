@@ -6,7 +6,18 @@ function initgame(connections) {
   setTimeout(updategame,500);
 }
 function updategame() {
-
+  var action = [];
+  for (i in curdata) {
+    action.push(curdata[i].action.parse());
+  }
+  for (i in action) {
+    if (action[i][0] == "mine") {
+      map.building[action[i][1]][action[i][2]] = action[i][0];
+    }
+    else if (action[i][0] == "steel mill") {
+      map.building[action[i][1]][action[i][2]] = action[i][1];
+    }
+  }
 }
 
 class player {
